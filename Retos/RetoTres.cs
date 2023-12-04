@@ -7,30 +7,47 @@ using System.Threading.Tasks;
 namespace PruebaPushUp.Retos;
 public class RetoTres
 {
-    public void retoTres(){
-        int div1 = 0;
-        int div2 = 0;
-        int num1 = 220;
-        int num2 = 285;
+    public void retoTres()
+    {
+        int limiteInferior = 1000;
+        int limiteSuperior = 1500;
 
-        for (int i = 1; i <= num1/2 ; i++)
+        for (int num1 = limiteInferior; num1 <= limiteSuperior; num1++)
         {
-            if(num1 % i == 0){
-                div1 += i;
+            int div1 = 0;
+            int div2 = 0;
+            int num2 = SumaDivisores(num1);
+
+            // Evitar números iguales
+            if (num1 != num2)
+            {
+                div1 = SumaDivisores(num1);
+                div2 = SumaDivisores(num2);
+
+                if (num1 == div2 && num2 == div1)
+                {
+                    Console.WriteLine($"Números amistosos: {num1}, {num2}");
+                    Console.ReadKey();
+                    return; // Termina la ejecución después de encontrar el primer par en el rango.
+                }
             }
         }
-        for (int i = 1; i <= num2/2 ; i++)
-        {
-            if(num2 % i == 0){
-                div2 += i;
-            }
-        }
-        if(num1 == div2 && num2 == div1){
-            Console.WriteLine("Numeros amistosos");
-            Console.ReadKey();
-        }else{
-            Console.WriteLine("Los numeros no son amistosos");
-            Console.ReadKey();
-        }
+
+        Console.WriteLine("No se encontraron números amistosos en el rango.");
+        Console.ReadKey();
     }
+
+    private int SumaDivisores(int num)
+    {
+        int suma = 0;
+        for (int i = 1; i <= num / 2; i++)
+        {
+            if (num % i == 0)
+            {
+                suma += i;
+            }
+        }
+        return suma;
+    }
+
 }
